@@ -1,0 +1,43 @@
+{
+  "name": "express-mesto-gha",
+  "version": "1.0.0",
+  "description": "[![Tests](../../actions/workflows/tests-13-sprint.yml/badge.svg)](../../actions/workflows/tests-13-sprint.yml) [![Tests](../../actions/workflows/tests-14-sprint.yml/badge.svg)](../../actions/workflows/tests-14-sprint.yml)\r # Проект Mesto фронтенд + бэкенд",
+  "main": "app.js",
+  "dependencies": {
+    "express": "^4.18.2",
+    "mongoose": "^6.8.3"
+  },
+  "scripts": {
+    "start": "nodemon app.js",
+    "lint": "npx eslint"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sokoloffkate/express-mesto-gha.git"
+  },
+  "keywords": [],
+  "author": "Katerins Sokolova",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sokoloffkate/express-mesto-gha/issues"
+  },
+  "homepage": "https://github.com/sokoloffkate/express-mesto-gha#readme",
+  "devDependencies": {
+    "eslint": "^8.31.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.27.4",
+    "nodemon": "^2.0.20"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
