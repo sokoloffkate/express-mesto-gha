@@ -49,10 +49,13 @@ module.exports.deleteCard = (req, res) => {
     .orFail(new NotFound(`Карточка с указанным id = ${req.params.id} не найдена`))
     .then((card) => res.status(OK).send({ data: card }))
     .catch((err) => {
-      if (err.name === 'NotFound') {
-        return res.status(NOT_FOUND).send({ message: err.message });
+      if (err.name === 'CastError') {
+        res.status(BAD_REQUEST).send({ message: `Введенный id = ${req.params.id} не является валидным` });
+      } else if (err.name === 'NotFound') {
+        res.status(NOT_FOUND).send({ message: err.message });
+      } else {
+        res.status(INTERNAL_SERVER_ERROR).send({ message: 'Ошибка сервера' });
       }
-      return res.status(INTERNAL_SERVER_ERROR).send({ message: 'Ошибка сервера' });
     });
 };
 
