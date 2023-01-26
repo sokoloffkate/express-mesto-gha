@@ -1,5 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const { NOT_FOUND } = require('./utils/constants');
 
 const { PORT = 3000 } = process.env;
 
@@ -22,7 +23,7 @@ app.use('/cards', require('./routes/cards'));
 app.use('/users', require('./routes/users'));
 
 app.use('/', (req, res) => {
-  res.status(404).send({ message: 'Неаправильеый url запрос' });
+  res.status(NOT_FOUND).send({ message: 'Неверный url запрос' });
 });
 
 app.listen(PORT, () => {
