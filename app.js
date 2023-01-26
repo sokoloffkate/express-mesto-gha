@@ -20,9 +20,10 @@ app.use((req, res, next) => {
 
 app.use('/cards', require('./routes/cards'));
 app.use('/users', require('./routes/users'));
+
 app.use('/', (req, res) => {
-  res.status(404).send({message: 'Неаправильеый url запрос'})
-})
+  res.status(404).send({ message: 'Неаправильеый url запрос' });
+});
 
 app.listen(PORT, () => {
   console.log(`App listening on port ${PORT}`);
