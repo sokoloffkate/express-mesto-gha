@@ -1,15 +1,11 @@
-const mongoose = require('mongoose');
 // eslint-disable-next-line import/no-extraneous-dependencies
 const bcrypt = require('bcryptjs');
 // eslint-disable-next-line import/no-extraneous-dependencies
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 const NotFound = require('../errors/NotFound');
-const BadRequest = require('../errors/BadRequest');
 
-const {
-  OK, BAD_REQUEST_MESSAGE,
-} = require('../utils/constants');
+const { OK } = require('../utils/constants');
 
 module.exports.login = (req, res) => {
   const { email, password } = req.body;
