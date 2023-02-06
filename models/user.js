@@ -1,8 +1,6 @@
 const mongoose = require('mongoose');
-// eslint-disable-next-line import/no-extraneous-dependencies
 const isEmail = require('validator/lib/isEmail');
-const bcrypt = require('bcryptjs');
-// eslint-disable-next-line import/no-extraneous-dependencies
+const bcrypt = require('bcrypt');
 const uniqueValidator = require('mongoose-unique-validator');
 
 const userSchema = new mongoose.Schema({
@@ -24,6 +22,11 @@ const userSchema = new mongoose.Schema({
   avatar: {
     type: String,
     default: 'https://pictures.s3.yandex.net/resources/jacques-cousteau_1604399756.png',
+    validate: {
+      // eslint-disable-next-line no-useless-escape
+      validator: (v) => /^https?:\/\/(www\.)?[a-zA-Z0-9\-\.\/\s]+/gm.test(v),
+      message: (props) => `${props.value} is not a valid link!`,
+    },
   },
 
   email: {
