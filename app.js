@@ -8,7 +8,7 @@ const {
 const auth = require('./middlewares/auth');
 const errorHandler = require('./middlewares/ErrorHandler');
 
-const { NOT_FOUND } = require('./utils/constants');
+const { NOT_FOUND, RegUrl } = require('./utils/constants');
 
 const { PORT = 3000 } = process.env;
 
@@ -24,7 +24,7 @@ app.post('/signup', celebrate({
   body: Joi.object().keys({
     name: Joi.string().min(2).max(30),
     about: Joi.string().min(2).max(30),
-    avatar: Joi.string().link('/'),
+    avatar: Joi.string().pattern(/^(https?:\/\/)?(w{3}\.)?([a-zA-Z0-9-._~:/?#[\]\@!\$\&'()*\+,;=]{1,})*#?/m),
     email: Joi.string().required().email(),
     password: Joi.string().required(),
   }),
