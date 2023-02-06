@@ -8,6 +8,9 @@ const BAD_REQUEST_MESSAGE = 'Переданы некорректные данн�
 const INTERNAL_SERVER_ERROR_MESSAGE = 'Ошибка сервера';
 const NOT_FOUND_MESSAGE = 'Запрашиваемый ресурс не найден';
 
+// eslint-disable-next-line no-useless-escape
+const RegUrl = /^(https?:\/\/)?(w{3}\.)?([a-zA-Z0-9-._~:/?#[\]\@!\$\&'()*\+,;=]{1,})*#?/gm;
+
 module.exports = {
   OK,
   BAD_REQUEST,
@@ -17,5 +20,5 @@ module.exports = {
   BAD_REQUEST_MESSAGE,
   INTERNAL_SERVER_ERROR_MESSAGE,
   NOT_FOUND_MESSAGE,
-
+  RegUrl,
 };
