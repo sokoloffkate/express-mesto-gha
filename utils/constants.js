@@ -9,7 +9,7 @@ const INTERNAL_SERVER_ERROR_MESSAGE = 'Ошибка сервера';
 const NOT_FOUND_MESSAGE = 'Запрашиваемый ресурс не найден';
 
 // eslint-disable-next-line no-useless-escape
-const RegUrl = / https?:\/\/\w+\b#?/;
+const RegUrl = /^https?:\/\/([\w]*[^\w])+#?/;
 
 module.exports = {
   OK,
