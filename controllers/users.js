@@ -22,7 +22,7 @@ module.exports.login = (req, res) => {
 
 module.exports.geCurrenttUser = (req, res, next) => {
   User.findById(req.user._id)
-    .orFail(new NotFound(`Пользователь с указанным id = ${req.params.id} не найдена`))
+    .orFail(new NotFound(`Пользователь с указанным id = ${req.params.id} не найден`))
     .then((user) => res.status(OK).send({ data: user }))
     .catch((err) => next(err));
 };
