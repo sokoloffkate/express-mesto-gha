@@ -1,4 +1,3 @@
-const { errors } = require('celebrate');
 const mongoose = require('mongoose');
 
 const {
