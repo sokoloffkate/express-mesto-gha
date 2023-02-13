@@ -18,6 +18,9 @@ module.exports = (err, req, res, next) => {
   if (err.name === 'Conflict') {
     return res.status(CONFLICT_ERROR).send({ message: err.message });
   }
+  if (err.name === 'Unauthorised') {
+    return res.status(401).send({ message: err.message });
+  }
   next(err);
 
   return res.status(INTERNAL_SERVER_ERROR).send(INTERNAL_SERVER_ERROR_MESSAGE);
