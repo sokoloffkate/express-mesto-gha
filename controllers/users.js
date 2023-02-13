@@ -1,7 +1,9 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const JWT_SECRET = require('../utils/constants');
 const User = require('../models/user');
 const NotFound = require('../errors/NotFound');
+const Conflict = require('../errors/Conflict');
 
 const { OK } = require('../utils/constants');
 
@@ -10,7 +12,7 @@ module.exports.login = (req, res) => {
 
   return User.findUserByCredentials(email, password)
     .then((user) => {
-      const token = jwt.sign({ _id: user._id }, 'some-secret-key', { expiresIn: '7d' });
+      const token = jwt.sign({ _id: user._id }, JWT_SECRET, { expiresIn: '7d' });
       res.send({ token });
     })
     .catch((err) => {
@@ -64,18 +66,25 @@ module.exports.createUser = (req, res, next) => {
     email,
     password,
   } = req.body;
-  bcrypt.hash(password, 10)
-    .then((hash) => User.create({
-      name,
-      about,
-      avatar,
-      email,
-      password: hash,
+
+  User.find({ email })
+    .then((usr) => {
+      if (usr.length > 0) {
+        throw new Conflict(`Пользователь с таким email ${email} уже зарегистрирован`);
+      }
+      bcrypt.hash(password, 10)
+        .then((hash) => User.create({
+          name,
+          about,
+          avatar,
+          email,
+          password: hash,
+        }))
+        .then((user) => {
+          const userObj = user.toObject();
+          delete userObj.password;
+          res.send(userObj);
+        });
     })
-      .then((user) => {
-        const userObj = user.toObject();
-        delete userObj.password;
-        res.send(userObj);
-      })
-      .catch((err) => next(err)));
+    .catch((err) => next(err));
 };

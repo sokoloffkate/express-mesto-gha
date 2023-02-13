@@ -8,7 +8,8 @@ const {
 const auth = require('./middlewares/auth');
 const errorHandler = require('./middlewares/ErrorHandler');
 
-const { NOT_FOUND, RegUrl } = require('./utils/constants');
+const { RegUrl } = require('./utils/constants');
+const NotFound = require('./errors/NotFound');
 
 const { PORT = 3000 } = process.env;
 
@@ -41,9 +42,7 @@ app.use(auth);
 app.use('/cards', require('./routes/cards'));
 app.use('/users', require('./routes/users'));
 
-app.use('/', (req, res) => {
-  res.status(NOT_FOUND).send({ message: 'Неверный url запрос' });
-});
+app.use('/', (req, res, next) => next(new NotFound('Неверный url запрос')));
 
 app.use(errors());
 
