@@ -1,13 +1,15 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const JWT_SECRET = require('../utils/constants');
+
+const { JWT_SECRET } = require('../middlewares/auth');
+
 const User = require('../models/user');
 const NotFound = require('../errors/NotFound');
 const Conflict = require('../errors/Conflict');
 
 const { OK } = require('../utils/constants');
 
-module.exports.login = (req, res) => {
+module.exports.login = (req, res, next) => {
   const { email, password } = req.body;
 
   return User.findUserByCredentials(email, password)
@@ -15,11 +17,7 @@ module.exports.login = (req, res) => {
       const token = jwt.sign({ _id: user._id }, JWT_SECRET, { expiresIn: '7d' });
       res.send({ token });
     })
-    .catch((err) => {
-      res
-        .status(401)
-        .send({ message: err.message });
-    });
+    .catch((err) => next(err));
 };
 
 module.exports.geCurrenttUser = (req, res, next) => {

@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const {
-  BAD_REQUEST, NOT_FOUND, INTERNAL_SERVER_ERROR, FORBIDDEN_ERROR, CONFLICT_ERROR,
+  BAD_REQUEST, NOT_FOUND, INTERNAL_SERVER_ERROR, FORBIDDEN_ERROR, CONFLICT_ERROR, TOKEN_ERROR,
   INTERNAL_SERVER_ERROR_MESSAGE,
 } = require('../utils/constants');
 
@@ -19,7 +19,7 @@ module.exports = (err, req, res, next) => {
     return res.status(CONFLICT_ERROR).send({ message: err.message });
   }
   if (err.name === 'Unauthorised') {
-    return res.status(401).send({ message: err.message });
+    return res.status(TOKEN_ERROR).send({ message: err.message });
   }
   next(err);
 
