@@ -18,10 +18,10 @@ module.exports = (err, req, res, next) => {
   if (err.name === 'Conflict') {
     return res.status(CONFLICT_ERROR).send({ message: err.message });
   }
-  if (err.name === 'Unauthorised') {
+  if (err.name === 'Unuthorised') {
     return res.status(TOKEN_ERROR).send({ message: err.message });
   }
   next(err);
 
-  return res.status(INTERNAL_SERVER_ERROR).send(INTERNAL_SERVER_ERROR_MESSAGE);
+  return res.status(INTERNAL_SERVER_ERROR).send(err.message);
 };
