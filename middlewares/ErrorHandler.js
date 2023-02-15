@@ -18,7 +18,7 @@ module.exports = (err, req, res, next) => {
   if (err.name === 'Conflict') {
     return res.status(CONFLICT_ERROR).send({ message: err.message });
   }
-  if (err.name === 'Unauthorized') {
+  if (err.name === 'Unuthorised') {
     return res.status(TOKEN_ERROR).send({ message: err.message });
   }
   next(err);
