@@ -8,6 +8,7 @@ const { RegUrl } = require('../utils/constants');
 
 UserRouter.get('/', getUsers);
 UserRouter.get('/me', geCurrenttUser);
+
 UserRouter.get('/:id', celebrate({
   params: Joi.object().keys({
     id: Joi.string().length(24),

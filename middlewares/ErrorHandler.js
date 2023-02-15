@@ -7,6 +7,7 @@ const {
 
 module.exports = (err, req, res, next) => {
   if (err instanceof mongoose.Error.CastError || err instanceof mongoose.Error.ValidationError) {
+    console.log(err);
     return res.status(BAD_REQUEST).send({ message: err.message });
   }
   if (err.name === 'NotFound') {
@@ -23,5 +24,5 @@ module.exports = (err, req, res, next) => {
   }
   next(err);
 
-  return res.status(INTERNAL_SERVER_ERROR).send(err);
+  return res.status(INTERNAL_SERVER_ERROR).send(INTERNAL_SERVER_ERROR_MESSAGE);
 };
