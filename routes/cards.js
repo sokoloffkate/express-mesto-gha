@@ -3,12 +3,14 @@ const { celebrate, Joi } = require('celebrate');
 const {
   createCard, getCards, deleteCard, likeCard, dislikeCard,
 } = require('../controllers/cards');
+const { RegUrl } = require('../utils/constants');
 
 CardRouter.get('/', getCards);
+
 CardRouter.post('/', celebrate({
   body: Joi.object().keys({
     name: Joi.string().required().min(2).max(30),
-    link: Joi.string().required(),
+    link: Joi.string().required().pattern(RegUrl),
   }),
 }), createCard);
 CardRouter.delete('/:id', celebrate({
